@@ -125,8 +125,8 @@ STATUS: 200 OK
   "_id": "60c72b2f9b1e8c001c8e4d3a",
   "codigo": 123456,
   "nombre": "Leche Entera",
-    "precio": 50.00,
-    "categoria": "Lácteos"
+  "precio": 50.00,
+  "categoria": "Lácteos"
 }
 ```
 
