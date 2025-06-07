@@ -2,7 +2,7 @@
 
 ![Node.js](https://img.shields.io/badge/Node.js-22.x-green?logo=node.js) ![Express](https://img.shields.io/badge/Express.js-5.x-lightgrey?logo=express)
 ![MongoDB](https://img.shields.io/badge/MongoDB-8.x-green?logo=mongodb)
- ![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Status](https://img.shields.io/badge/status-active-brightgreen) ![PRs](https://img.shields.io/badge/PRs-welcome-orange)
+![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Status](https://img.shields.io/badge/status-active-brightgreen) ![PRs](https://img.shields.io/badge/PRs-welcome-orange)
 
 
 **supermercado-api** es una API REST desarrollada con **Node.js**, **Express** y  **MongoDB** que permite gestionar un catálogo de productos para un supermercado.
