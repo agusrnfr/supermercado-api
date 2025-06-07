@@ -13,7 +13,7 @@
 - 🔍 Búsqueda de productos por código.
 - ➕ Alta de nuevos productos.
 - ✏️ Modificación de productos existentes.
-- ❌ Eliminación de productos por código.
+- ❌ Baja de productos por código.
 
 ## 📖 Estructura de los Datos
 
@@ -61,12 +61,12 @@ Cada producto contiene la siguiente información:
 
 | Método   | Endpoint             | Descripción                                                                  |
 | -------- | -------------------- | ---------------------------------------------------------------------------- |
-| `GET`    | `/`                  | Mensaje de bienvenida                                                        |
+| `GET`    | `/`                  | Mensaje de bienvenida.                                                       |
 | `GET`    | `/productos`         | Retorna el listado completo de productos.                                    |
 | `GET`    | `/productos/:codigo` | Retorna un producto por su código.                                           |
-| `POST`   | `/productos`         | Da de alta un nuevo producto (requiere: código, nombre, precio y categoría). |
-| `PUT`    | `/productos/:codigo` | Modifica un producto existente (código actual y nuevos datos).               |
-| `DELETE` | `/productos/:codigo` | Elimina un producto por su código.                                           |
+| `POST`   | `/productos`         | Da de alta un nuevo producto.                                                |
+| `PUT`    | `/productos/:codigo` | Modifica un producto existente.                                              |
+| `DELETE` | `/productos/:codigo` | Da de baja un producto por su código.                                        |
 
 ## 📂 Ejemplo de Objeto Producto
 
@@ -80,15 +80,16 @@ Cada producto contiene la siguiente información:
 }
 ```
 
-## Ejemplo de Uso
-Para probar la API, podés utilizar herramientas como **Postman** o **Insomnia**. Aquí hay algunos ejemplos de cómo interactuar con la API:
-### Obtener todos los productos
+## 🛠️ Ejemplo de Uso
+Para probar la API, podés usar herramientas como **Postman**, **Insomnia** o **Thunder Client**. Aca hay algunos ejemplos de cómo interactuar con la API:
 
-#### Solicitud
+### 📦 Obtener todos los productos
+
+#### 📩 Solicitud
 ```http
 GET /productos
 ```
-#### Respuesta
+#### 📝 Respuesta
 ```http
 STATUS: 200 OK
 ```
@@ -110,13 +111,13 @@ STATUS: 200 OK
   }
 ]
 ```
-### Obtener un producto por código
+### 🔍 Obtener un producto por código
 
-#### Solicitud
+#### 📩 Solicitud
 ```http
 GET /productos/123456
 ```
-#### Respuesta
+#### 📝 Respuesta
 ```http
 STATUS: 200 OK
 ```
@@ -130,9 +131,9 @@ STATUS: 200 OK
 }
 ```
 
-### Agregar un nuevo producto
+### ➕ Agregar un nuevo producto
 
-#### Solicitud
+#### 📩 Solicitud
 ```http
 POST /productos
 
@@ -143,7 +144,7 @@ POST /productos
   "categoria": "Comestible"
 }
 ```
-##### Respuesta
+##### 📝 Respuesta
 ```http
 STATUS: 201 Created
 ```
@@ -157,8 +158,8 @@ STATUS: 201 Created
 }
 ```
 
-### Actualizar un producto existente
-#### Solicitud
+### ✏️ Modificar un producto existente
+#### 📩 Solicitud
 ```http
 PUT /productos/123456
 
@@ -168,7 +169,7 @@ PUT /productos/123456
 }
 ```
 
-##### Respuesta
+##### 📝 Respuesta
 ```http
 STATUS: 200 OK
 ```
@@ -179,14 +180,14 @@ STATUS: 200 OK
 }
 ```
 
-### Eliminar un producto
+### ❌ Eliminar un producto
 
-#### Solicitud
+#### 📩 Solicitud
 ```http
 DELETE /productos/123456
 ```
 
-##### Respuesta
+##### 📝 Respuesta
 ```http
 STATUS: 204 No Content
 ```
