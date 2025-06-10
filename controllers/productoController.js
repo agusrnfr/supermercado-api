@@ -26,6 +26,47 @@ const obtenerProductos = async (req, res) => {
 	}
 };
 
+// Controlador para obtener un producto por su nombre
+const obtenerProductoPorNombre = async (req, res) => {
+	const nombre = req.params.nombre;
+
+	if (!nombre) {
+		return res.status(400).json({ error: "El nombre del producto es requerido" });
+	}
+
+	// Validar que solo contenga letras y espacios
+	if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
+		return res
+			.status(400)
+			.json({ error: "El nombre debe ser alfabético (solo letras y espacios)" });
+	}
+
+	const client = await connectToMongoDB();
+	if (!client) {
+		return res
+			.status(500)
+			.json({ error: "Error al conectar a la base de datos" });
+	}
+
+	const db = client.db("supermercado");
+	try {
+		const productos = await db
+			.collection("productos")
+			.find({ nombre: { $regex: nombre, $options: "i" } }) // búsqueda parcial insensible a mayúsculas consultas MongoDB
+			.toArray();			
+
+		if (!productos || productos.length === 0) {
+			return res.status(404).json({ error: "Producto por nombre no encontrado" });
+		}		
+		res.status(200).json(productos);
+	} catch (error) {
+		console.error("Error al obtener producto:", error);
+		res.status(500).json({ error: "Error al obtener producto" });
+	} finally {
+		await closeMongoDBConnection();
+	}
+};
+
 // Controlador para obtener un producto por su código
 const obtenerProductoPorCodigo = async (req, res) => {
 	const codigo = parseInt(req.params.codigo);
@@ -253,6 +294,7 @@ const bajaProducto = async (req, res) => {
 
 module.exports = {
 	obtenerProductos,
+	obtenerProductoPorNombre,
 	obtenerProductoPorCodigo,
 	altaProducto,
 	modificacionProducto,
