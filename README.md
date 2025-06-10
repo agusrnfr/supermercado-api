@@ -11,6 +11,7 @@
 
 - 📦 Visualización del catálogo completo.
 - 🔍 Búsqueda de productos por código.
+- 🧾 Búsqueda de productos por nombre.
 - ➕ Alta de nuevos productos.
 - ✏️ Modificación de productos existentes.
 - ❌ Baja de productos por código.
@@ -65,15 +66,15 @@ Luego, importá los datos desde este archivo JSON:
 
 ## 🔧 Endpoints
 
-| Método   | Endpoint             | Descripción                                                                  |
-| -------- | -------------------- | ---------------------------------------------------------------------------- |
-| `GET`    | `/`                  | Mensaje de bienvenida.                                                       |
-| `GET`    | `/productos`         | Retorna el listado completo de productos.                                    |
-| `GET`    | `/nombre/:nombre`    | Retorna un producto por su nombre.                                           |
-| `GET`    | `/productos/:codigo` | Retorna un producto por su código.                                           |
-| `POST`   | `/productos`         | Da de alta un nuevo producto.                                                |
-| `PUT`    | `/productos/:codigo` | Modifica un producto existente.                                              |
-| `DELETE` | `/productos/:codigo` | Da de baja un producto por su código.                                        |
+| Método   | Endpoint                    | Descripción                               |
+| -------- | --------------------------- | ----------------------------------------- |
+| `GET`    | `/`                         | Mensaje de bienvenida.                    |
+| `GET`    | `/productos`                | Retorna el listado completo de productos. |
+| `GET`    | `/productos/nombre/:nombre` | Retorna un producto por su nombre.        |
+| `GET`    | `/productos/codigo/:codigo` | Retorna un producto por su código.        |
+| `POST`   | `/productos`                | Da de alta un nuevo producto.             |
+| `PUT`    | `/productos/:codigo`        | Modifica un producto existente.           |
+| `DELETE` | `/productos/:codigo`        | Da de baja un producto por su código.     |
 
 ## 📂 Ejemplo de Objeto Producto
 
@@ -122,7 +123,7 @@ STATUS: 200 OK
 
 #### 📩 Solicitud
 ```http
-GET /nombre/aceite
+GET /productos/nombre/aceite
 ```
 #### 📝 Respuesta
 ```http
@@ -141,7 +142,7 @@ STATUS: 200 OK
 
 #### 📩 Solicitud
 ```http
-GET /productos/123456
+GET /productos/codigo/123456
 ```
 #### 📝 Respuesta
 ```http
@@ -222,8 +223,10 @@ STATUS: 204 No Content
 
 ## ⚠️ Validaciones
 - Todos los campos son obligatorios al crear un producto. En caso de modificar un producto, no todos los campos son obligatorios, pero al menos uno debe ser proporcionado.
-- En todos los endpoints, el código y el precio deben ser numéricos mayores a cero.
 - El código debe ser único, no se permiten duplicados.
+- En todos los endpoints, el código y el precio deben ser números mayores a cero.
+- El nombre del producto debe ser alfabético (solo letras y espacios).
+- La categoría del producto debe ser alfabética (solo letras y espacios).
 
 ## 👥 Desarrolladoras
 
