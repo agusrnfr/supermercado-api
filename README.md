@@ -26,6 +26,12 @@ Cada producto contiene la siguiente información:
 
 ## 📦 Instalación
 
+⚠️ **Importante:**  
+Si deseás correr la app localmente con tu propia base de datos, debés crear una cuenta en [MongoDB Atlas](https://www.mongodb.com/cloud/atlas), generar tu propia URL de conexión y reemplazar la existente en `.env`.
+
+Luego, importá los datos desde este archivo JSON:  
+[`supermercado.json`](https://github.com/mariaelisaaraya/IngeniasBackend_2025/blob/main/Modulo2/tp2/supermercado.json)
+
 1. Cloná el repositorio:
    ```bash
    git clone https://github.com/agusrnfr/supermercado-api
