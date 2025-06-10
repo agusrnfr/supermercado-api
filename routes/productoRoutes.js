@@ -40,12 +40,12 @@ router.get("/productos", obtenerProductos);
 // Endpoint: obtener un producto por código
 // Ruta para obtener un producto específico por su código
 // Verifica que el código sea un número y lo busca en la base de datos para devolverlo
-router.get("/productos/:codigo", obtenerProductoPorCodigo);
+router.get("/productos/codigo/:codigo", obtenerProductoPorCodigo);
 
 // Endpoint: obtener un producto por nombre
 // Ruta para obtener un producto específico por su nombre
 // Verifica que el nombre sea un alfabetico y lo busca en la base de datos para devolverlo, la búsqueda es parcial
-router.get("/nombre/:nombre", obtenerProductoPorNombre);
+router.get("/productos/nombre/:nombre", obtenerProductoPorNombre);
 
 // Endpoint: alta de producto
 // Ruta para crear un nuevo producto

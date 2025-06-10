@@ -31,14 +31,16 @@ const obtenerProductoPorNombre = async (req, res) => {
 	const nombre = req.params.nombre;
 
 	if (!nombre) {
-		return res.status(400).json({ error: "El nombre del producto es requerido" });
+		return res
+			.status(400)
+			.json({ error: "El nombre del producto es requerido" });
 	}
 
 	// Validar que solo contenga letras y espacios
 	if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
-		return res
-			.status(400)
-			.json({ error: "El nombre debe ser alfabético (solo letras y espacios)" });
+		return res.status(400).json({
+			error: "El nombre debe ser alfabético (solo letras y espacios)",
+		});
 	}
 
 	const client = await connectToMongoDB();
@@ -53,11 +55,13 @@ const obtenerProductoPorNombre = async (req, res) => {
 		const productos = await db
 			.collection("productos")
 			.find({ nombre: { $regex: nombre, $options: "i" } }) // búsqueda parcial insensible a mayúsculas consultas MongoDB
-			.toArray();			
+			.toArray();
 
 		if (!productos || productos.length === 0) {
-			return res.status(404).json({ error: "Producto por nombre no encontrado" });
-		}		
+			return res
+				.status(404)
+				.json({ error: "Producto por nombre no encontrado" });
+		}
 		res.status(200).json(productos);
 	} catch (error) {
 		console.error("Error al obtener producto:", error);
@@ -71,14 +75,10 @@ const obtenerProductoPorNombre = async (req, res) => {
 const obtenerProductoPorCodigo = async (req, res) => {
 	const codigo = parseInt(req.params.codigo);
 
-	if (!codigo) {
+	if (isNaN(codigo) || codigo <= 0) {
 		return res
 			.status(400)
-			.json({ error: "El codigo de producto es requerido" });
-	}
-
-	if (isNaN(codigo)) {
-		return res.status(400).json({ error: "El codigo debe ser un número" });
+			.json({ error: "El código debe ser un número válido" });
 	}
 
 	const client = await connectToMongoDB();
@@ -108,25 +108,39 @@ const obtenerProductoPorCodigo = async (req, res) => {
 
 // Controlador para crear un nuevo producto
 const altaProducto = async (req, res) => {
+	if (Object.keys(req.body).length !== 4) {
+		return res.status(400).json({
+			error: "Todos los campos son requeridos",
+		});
+	}
+
 	const codigo = parseInt(req.body.codigo);
 	const nombre = req.body.nombre;
 	const precio = parseFloat(req.body.precio);
 	const categoria = req.body.categoria;
 
-	if (!codigo || !nombre || !precio || !categoria) {
-		return res.status(400).json({ error: "Todos los campos son requeridos" });
-	}
-
-	if (isNaN(codigo)) {
+	if (isNaN(codigo) || codigo <= 0) {
 		return res
 			.status(400)
 			.json({ error: "El código debe ser un número válido" });
 	}
 
-	if (isNaN(precio)) {
+	if (isNaN(precio) || precio < 0) {
 		return res
 			.status(400)
 			.json({ error: "El precio debe ser un número válido" });
+	}
+
+	if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
+		return res.status(400).json({
+			error: "El nombre debe ser alfabético (solo letras y espacios)",
+		});
+	}
+
+	if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(categoria)) {
+		return res.status(400).json({
+			error: "La categoría debe ser alfabética (solo letras y espacios)",
+		});
 	}
 
 	const client = await connectToMongoDB();
@@ -182,23 +196,40 @@ const modificacionProducto = async (req, res) => {
 	const precio = parseFloat(req.body.precio);
 	const categoria = req.body.categoria;
 
-	if (isNaN(codigo)) {
+	if (isNaN(codigo) || codigo <= 0) {
 		return res.status(400).json({
 			error: "El código del producto a modificar debe ser un número válido",
 		});
 	}
 
-	if (nuevoCodigo && isNaN(nuevoCodigo)) {
+	if (req.body.codigo) {
+		if (isNaN(nuevoCodigo) || nuevoCodigo <= 0) {
+			return res.status(400).json({
+				error: "El nuevo código debe ser un número válido",
+			});
+		}
+	}
+
+	if (req.body.precio) {
+		if (isNaN(precio) || precio <= 0) {
+			return res
+				.status(400)
+				.json({ error: "El nuevo precio debe ser un número válido" });
+		}
+	}
+
+	if (req.body.nombre && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
 		return res.status(400).json({
-			error: "El nuevo código debe ser un número válido",
+			error: "El nombre debe ser alfabético (solo letras y espacios)",
 		});
 	}
 
-	if (precio && isNaN(precio)) {
-		return res
-			.status(400)
-			.json({ error: "El nuevo precio debe ser un número válido" });
+	if (req.body.categoria && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(categoria)) {
+		return res.status(400).json({
+			error: "La categoría debe ser alfabética (solo letras y espacios)",
+		});
 	}
+
 	const client = await connectToMongoDB();
 
 	if (!client) {
@@ -255,7 +286,7 @@ const modificacionProducto = async (req, res) => {
 const bajaProducto = async (req, res) => {
 	const codigo = parseInt(req.params.codigo);
 
-	if (isNaN(codigo)) {
+	if (isNaN(codigo) || codigo <= 0) {
 		return res
 			.status(400)
 			.json({ error: "El código debe ser un número válido" });
