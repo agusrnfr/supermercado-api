@@ -63,6 +63,7 @@ Cada producto contiene la siguiente información:
 | -------- | -------------------- | ---------------------------------------------------------------------------- |
 | `GET`    | `/`                  | Mensaje de bienvenida.                                                       |
 | `GET`    | `/productos`         | Retorna el listado completo de productos.                                    |
+| `GET`    | `/nombre/:nombre`    | Retorna un producto por su nombre.                                           |
 | `GET`    | `/productos/:codigo` | Retorna un producto por su código.                                           |
 | `POST`   | `/productos`         | Da de alta un nuevo producto.                                                |
 | `PUT`    | `/productos/:codigo` | Modifica un producto existente.                                              |
@@ -110,6 +111,25 @@ STATUS: 200 OK
     "categoria": "Limpieza"
   }
 ]
+```
+### 🔍 Obtener un producto por nombre
+
+#### 📩 Solicitud
+```http
+GET /nombre/aceite
+```
+#### 📝 Respuesta
+```http
+STATUS: 200 OK
+```
+```json
+{
+  "_id": "68473cc70822104ad584e6ec",
+  "codigo": 5674,
+  "nombre": "Aceite de oliva",
+  "precio": 7.99,
+  "categoria": "Comestible"
+}
 ```
 ### 🔍 Obtener un producto por código
 
