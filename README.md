@@ -25,6 +25,14 @@ Cada producto contiene la siguiente información:
 - **precio**: Precio del producto.
 - **categoria**: Categoría a la que pertenece el producto (por ejemplo, "Limpieza", "Comestible", "Lácteos").
 
+## 📖 Diagramas de flujo
+
+<details>
+  <summary>Ver diagrama ampliado</summary>
+  <img src="diagrama-ingenias.svg" alt="Diagrama de flujo" width="100%" />
+</details>
+
+
 ## 📦 Instalación
 
 ⚠️ **Importante:**  
